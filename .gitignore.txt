@@ -1,2 +1,2 @@
-api/env
-xtagram/node_modules
+api/env/
+xtagram/node_modules/
