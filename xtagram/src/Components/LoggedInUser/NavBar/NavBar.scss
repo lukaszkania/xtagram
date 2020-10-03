@@ -1,0 +1,30 @@
+.nav-bar-container{
+    width: 100%;
+    border:1px solid #DBDBDB;
+    position: sticky;
+    top: 0;
+    background-color: #FAFAFA;
+}
+
+.title{
+    font-family: 'Galada';
+    margin: 0.5em;
+}
+
+.icons-and-avatar-container{
+    font-size: 2em;
+}
+
+.nav-bar-avatar{
+    max-width: 1.5em;
+    height: auto;
+}
+.nav-bar-element{
+    margin: 0 0.2em;
+}
+
+@media (min-width:100px) and (max-width:550px){
+    .search-users-input{
+        display: none;
+    }
+}

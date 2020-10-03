@@ -1,0 +1,22 @@
+.unlogged-home-page-container{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F6F6F6;
+}
+
+.log-in-form-and-photo-container{
+    padding: 15vh 0 0 0;
+    img{
+        width: 100%;
+        height: auto;
+        max-width: 450px;
+    }
+}
+
+@media (max-width:700px){
+    .log-in-form-and-photo-container{
+        img{
+            display: none;
+        }
+    }
+}
