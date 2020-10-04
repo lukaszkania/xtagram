@@ -7,7 +7,7 @@ from likes.models import Likes
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Post
-        fields = ('pk', 'description', 'image', 'created_at', 'updated_at', 'post_author', 'list_of_users_that_like_it', 'likes_number')
+        fields = ('pk', 'description', 'image', 'created_at', 'updated_at', 'post_author', 'likes_number')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -22,4 +22,4 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
 class LikesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Likes
-        fields = ('pk', 'likes_number')
+        fields = ('pk', 'likes_number', 'list_of_users_that_like_it')

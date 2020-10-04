@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { POSTS_API, USERS_API } from '../../../API_URLS';
+import { LIKES_API, POSTS_API, USERS_API } from '../../../API_URLS';
 import { connect } from 'react-redux';
 
 class AddPostComponent extends Component {
@@ -30,18 +30,25 @@ class AddPostComponent extends Component {
         form_data.append('image', this.state.image)
         form_data.append('post_author', `${USERS_API}${this.props.idOfLoggedInUser}/`)
         form_data.append('likes_number', 0)
-
-        axios.post(POSTS_API, form_data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }).then(response => {
-            this.setState({
-                createdPostId: response.data.pk
+        
+        axios.post(LIKES_API, {likes_number:0}).then(response => {
+            let likesPkToAssignToCreatedPost = response.data.pk
+            form_data.append('likes_number', `${LIKES_API}${likesPkToAssignToCreatedPost}/`)
+            axios.post(POSTS_API, form_data, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then(response => {
+                this.setState({
+                    createdPostId: response.data.pk
+                })
+            }).catch(error => {
+                console.log(error.message)
             })
         }).catch(error => {
             console.log(error.message)
         })
+
     }
 
     render() { 

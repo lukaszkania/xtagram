@@ -21,8 +21,14 @@ class Post extends Component {
                 postAuthorUsername: response.data.username,
                 postAuthorAvatarSrc: response.data.avatar,
                 postPk: this.props.postObject.pk,
-                postLikesNumber: this.props.postObject.likes_number
             })
+        })
+        axios.get(this.props.postObject.likes_number).then(response => {
+            this.setState({
+                postLikesNumber: response.data.likes_number
+            })
+        }).catch(error => {
+            console.log(error.message)
         })
     }
 
