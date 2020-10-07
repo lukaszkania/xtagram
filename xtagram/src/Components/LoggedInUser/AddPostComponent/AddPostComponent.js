@@ -29,8 +29,7 @@ class AddPostComponent extends Component {
         form_data.append('description', this.state.description)
         form_data.append('image', this.state.image)
         form_data.append('post_author', `${USERS_API}${this.props.idOfLoggedInUser}/`)
-        form_data.append('likes_number', 0)
-        
+
         axios.post(LIKES_API, {likes_number:0}).then(response => {
             let likesPkToAssignToCreatedPost = response.data.pk
             form_data.append('likes_number', `${LIKES_API}${likesPkToAssignToCreatedPost}/`)
