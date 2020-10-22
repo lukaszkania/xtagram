@@ -34,7 +34,7 @@ const rootReducer = (state = store, action) => {
       case SET_ARRAY_OF_POSTS_TO_DISPLAY:
         return {
           ...state,
-          postsObjectsToDisplay: state.postsObjectsToDisplay.concat(action.postsObjectsToDisplay).sort((a, b) => (a.pk < b.pk) ? 1 : ((b.pk < a.pk) ? -1 : 0))
+          postsObjectsToDisplay:  action.postsObjectsToDisplay.sort((a, b) => (a.pk < b.pk) ? 1 : ((b.pk < a.pk) ? -1 : 0))
         }
 
       case SET_ARRAY_OF_USERNAMES_OF_FOLLOWED_USERS:

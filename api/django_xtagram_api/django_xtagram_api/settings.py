@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'rest_framework',
     'corsheaders',
-    'likes.apps.LikesConfig'
+    'likes.apps.LikesConfig',
+    'users_followed.apps.UsersFollowedConfig'
 ]
 
 MIDDLEWARE = [

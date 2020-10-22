@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import './PostsList.scss';
 
 class PostsList extends Component {
-    state = {  }
     render() { 
         return ( 
             <div className="posts-list-container container-fluid d-flex flex-column justify-content-center align-items-center">

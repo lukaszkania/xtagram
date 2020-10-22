@@ -15,7 +15,6 @@ export const modifyDate = (dateFromApi) => {
     if(actualYear === yearFromApiDate && actualMonth === monthFromApiDate && actualDay === dayFromApiDate){
         if(actualHour === hourFromApiDate){
             let howManyMinutesAgoPostedWasAdded = Math.abs(actualMinutes - minutesFromApiDate);
-            console.log(howManyMinutesAgoPostedWasAdded);
             return (howManyMinutesAgoPostedWasAdded === 0 ? "Przed chwilą":`${howManyMinutesAgoPostedWasAdded} min temu`);
         }else{
             let howManyHoursAgoPostWasAdded = actualHour - hourFromApiDate;

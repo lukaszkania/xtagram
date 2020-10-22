@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { LIKES_API, POSTS_API, USERS_API } from '../../../API_URLS';
 import { connect } from 'react-redux';
+import './AddPostComponent.scss';
 
 class AddPostComponent extends Component {
     state = { 

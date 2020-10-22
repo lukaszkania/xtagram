@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './RegisterForm.scss';
 import axios from 'axios';
-import { USERS_API } from '../../../API_URLS';
+import { USERS_API, USERS_FOLLOWED_API } from '../../../API_URLS';
 
 class RegisterForm extends Component {
     state = { 
@@ -11,7 +11,9 @@ class RegisterForm extends Component {
         password: "",
         userObjectToRegister: {},
         isInfoAboutBadDataDisplaying: false,
-        createdUserId:""
+        createdUserId:"",
+        createdUsersFollowedListId: "",
+        users_followed: []
      }
 
      handleInputChange = event => {
@@ -24,35 +26,36 @@ class RegisterForm extends Component {
 
     handleRegisterButtonSubmit = event => {
         event.preventDefault();
-        const userObjectToRegister = {
-            "username": this.state.username,
-            "email": this.state.email,
-            "password": this.state.password,
-        }
-        axios.post(`${USERS_API}`, userObjectToRegister).then(response => {
+        axios.post(`${USERS_FOLLOWED_API}`).then(response => {
             this.setState({
-                isInfoAboutBadDataDisplaying: false,
-                createdUserId: response.data.pk
+                createdUsersFollowedListId: response.data.pk
             })
         }).catch(error => {
-            if(error.response.status === 400){
-                this.setState({
-                    isInfoAboutBadDataDisplaying:true
-                })
-            } 
+            console.log(error.message)
         }).finally(() => {
-            axios.put(`${USERS_API}${this.state.createdUserId}/`, 
-            {         
-            "username": this.state.username,
-            "email": this.state.email,
-            "password": this.state.password,
-            "users_followed": [`${USERS_API}${this.state.createdUserId}/`]
-            }).then(response => {
+            const userObjectToRegister = {
+                "username": this.state.username,
+                "email": this.state.email,
+                "password": this.state.password,
+                "users_followed": [`${USERS_FOLLOWED_API}${this.state.createdUsersFollowedListId}/`]
+            }
+            axios.post(`${USERS_API}`, userObjectToRegister).then(response => {
+                console.log(response)
+                this.setState({
+                    createdUserId: response.data.pk
+                })
             }).catch(error => {
                 console.log(error.message)
+            }).finally(() => {
+                axios.put(`${USERS_FOLLOWED_API}${this.state.createdUsersFollowedListId}/`, {
+                    "list_of_users_that_are_followed_by": [`${USERS_API}${this.state.createdUserId}/`]
+                }).then(response => {
+                    console.log(response)
+                }).catch(error => {
+                    console.log(error.message)
+                })
             })
         })
-
     }
 
     render() { 

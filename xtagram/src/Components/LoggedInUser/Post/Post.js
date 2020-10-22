@@ -12,13 +12,15 @@ class Post extends Component {
         postAuthorUsername: "",
         postAuthorAvatarSrc: "",
         postPk: "",
-        postLikesNumber: 0
+        postLikesNumber: 0,
+        postAuthorPk:""
     }
 
     componentDidMount(){
         axios.get(this.props.postObject.post_author).then(response => {
             this.setState({
                 postAuthorUsername: response.data.username,
+                postAuthorPk: response.data.pk,
                 postAuthorAvatarSrc: response.data.avatar,
                 postPk: this.props.postObject.pk,
             })
@@ -35,7 +37,7 @@ class Post extends Component {
     render() { 
         return ( 
             <div className="post-container d-flex flex-column">
-                <TopBarOfPost postAuthorAvatarSrc={this.state.postAuthorAvatarSrc} postAuthorUsername={this.state.postAuthorUsername} postPk={this.state.postPk} />
+                <TopBarOfPost postAuthorAvatarSrc={this.state.postAuthorAvatarSrc} postAuthorUsername={this.state.postAuthorUsername} postPk={this.state.postPk} postAuthorPk={this.state.postAuthorPk} />
                 <PostImage postImageSrc={this.props.postObject.image} />
                 <UnderPostBar postLikesNumber={this.state.postLikesNumber}  postPk={this.state.postPk} postObject={this.props.postObject} />
             </div>

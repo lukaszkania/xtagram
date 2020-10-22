@@ -7,12 +7,14 @@ from post.views import FileUploadView
 from user.views import UserViewSet
 from comment.views import CommentViewSet
 from likes.views import LikesViewSet
+from users_followed.views import UsersFolloweViewSet
 
 router = routers.DefaultRouter()
 router.register('posts', PostViewSet)
 router.register('users', UserViewSet)
 router.register('comments', CommentViewSet)
 router.register('likes', LikesViewSet)
+router.register('users_followed', UsersFolloweViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

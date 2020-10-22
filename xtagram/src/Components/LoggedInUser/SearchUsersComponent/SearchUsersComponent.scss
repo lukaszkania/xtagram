@@ -1,0 +1,30 @@
+.search-box-and-list-container{
+    .list-of-searched-users-container{
+        position: relative;
+        .list-of-searched-users{
+            width: 100%;
+            position: absolute;
+            z-index: 1;
+            margin: 0.5em 0 0 0;
+            text-align: center;
+            list-style: none;
+            .anchor-to-user-profile{
+                text-decoration: none;
+                color: black;
+            }
+
+            li{
+                background-color: #FAFAFA;
+                width: 100%;
+                padding: 0.1em;
+                border: 1px solid black;
+                .user-search-avatar{
+                    vertical-align: middle;
+                    width: 3em;
+                    height: 3em;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}

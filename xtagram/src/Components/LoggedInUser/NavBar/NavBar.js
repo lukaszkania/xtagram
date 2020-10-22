@@ -5,13 +5,15 @@ import LogOutOptionComponent from '../LogOutOptionComponent/LogOutOptionComponen
 import axios from 'axios';
 import { USERS_API } from '../../../API_URLS';
 import AddPostComponent from '../AddPostComponent/AddPostComponent';
+import SearchUsersComponent from '../SearchUsersComponent/SearchUsersComponent';
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     state = { 
         loggedInUserId: "",
         loggedInUserUsername: "",
         loggedInUserAvatarUrl:"",
-        isAddPostComponentDisplay: false
+        isAddPostComponentDisplay: false,
      }
 
     componentDidMount(){
@@ -36,12 +38,11 @@ class NavBar extends Component {
     render() { 
         return ( 
             <div className="nav-bar-container d-flex justify-content-around align-items-center">
-                <h2 className="title">Xtagram</h2>
-                <input className="text-center search-users-input" type="text" placeholder="Szukaj"/>
+                <Link to="/"><h2 className="title">Xtagram</h2></Link>
+                <SearchUsersComponent />
                 <div className="icons-and-avatar-container d-flex justify-content-between align-items-center">
-                    <i className="fas fa-home nav-bar-element"></i>
-                    <i className="fas fa-heart nav-bar-element"></i>
-                    <img className="nav-bar-avatar nav-bar-element" alt="avatar" src={this.state.loggedInUserAvatarUrl} />
+                    <Link to={"/"}><i className="fas fa-home nav-bar-element"></i></Link>
+                    <Link to={`/user/${this.props.idOfLoggedInUser}`}><img className="nav-bar-avatar nav-bar-element" alt="avatar" src={this.state.loggedInUserAvatarUrl} /></Link>
                     <i onClick={this.handlePlusFontClick} className="fas fa-plus"></i>
                     {this.state.isAddPostComponentDisplay ? 
                         (                    

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import UnloggedHomePageComponent from './Components/UnlogedUser/UnloggedHomePageComponent/UnloggedHomePageComponent';
 import RegisterPageComponent from './Components/UnlogedUser/RegisterPageComponent/RegisterPageComponent';
 import CookiesInfoBarComponent from './Components/UnlogedUser/CookiesInfoBarComponent/CookiesInfoBarComponent';
 import LoggedInHomePage from './Components/LoggedInUser/LoggedInHomePage/LoggedInHomePage';
+import UserPageComponent from './Components/LoggedInUser/UserPageComponent/UserPageComponent';
+import { createStore } from 'redux';
 
 class App extends Component {
 
@@ -22,7 +24,10 @@ class App extends Component {
           {localStorage["isUserLoggedIn"] === "true" ?
           /* LOGGED IN USER */
           (
+            <>
               <Route exact path="/" component={LoggedInHomePage}/>
+              <Route path={"/user/:user_id"} component={withRouter(UserPageComponent)}/>
+            </>
           )
           :
           /* UNLOGGED USER */
