@@ -33,14 +33,10 @@ class EditAvatarPhotoWidget extends Component {
 
     render() { 
         return ( 
-            <form className="edit-avatar-photo-container md-form" >
+            <form className="edit-avatar-photo-container md-form d-flex flex-column justify-content-center" >
                 <div className="file-field">
                     <div className="btn btn-primary btn-sm float-left">
-                        <span>Wybierz plik</span>
                         <input onChange={this.handleImageChange} type="file" />
-                    </div>
-                    <div className="file-field">
-                        <input onChange={this.onDescriptionChange} type="text" className="form-control" id="post-description" placeholder="Opis" />
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={this.onAddButtonClick}>Edytuj</button>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { LIKES_API, POSTS_API, USERS_API } from '../../../API_URLS';
 import { connect } from 'react-redux';
 import { modifyDate } from '../../../CONSTANTS';
+import CommentsComponent from '../CommentsComponent/CommentsComponent';
 
 class UnderPostBar extends Component {
     state = { 
@@ -11,7 +12,8 @@ class UnderPostBar extends Component {
         usernamesOfUsersThatLikeThisPost: [],
         classNameOfHeartIcon: "far fa-heart",
         likesAmount: 0,
-        postCreatedDate: ""
+        postCreatedDate: "",
+        isCommentsContainerDisplaying: false
      }
 
     componentDidMount(){
@@ -84,6 +86,12 @@ class UnderPostBar extends Component {
         })
     }
 
+    handlClickOnShowOrHideAllComments = event => {
+        this.setState({
+            isCommentsContainerDisplaying: !this.state.isCommentsContainerDisplaying
+        })
+    }
+
     render() { 
         return ( 
             <div className="d-flex flex-column justify-content-around">
@@ -99,8 +107,29 @@ class UnderPostBar extends Component {
                     )
                 }
             </div>
+            {this.props.postObject.description ? 
+            (
+                <div className="post-description">{this.props.postObject.description}</div>
+            )
+            :
+            (
+                <>
+                </>
+            )
+            }
             <div className="likes-number-container">Liczba polubień: {this.state.likesAmount}</div>
-            <div className="show-all-coments-container">Zobacz wszystkie komentarze</div>
+            {this.state.isCommentsContainerDisplaying ? 
+                (
+                    <>
+                        <div className="show-all-coments-container" onClick={this.handlClickOnShowOrHideAllComments}>Ukryj wszystkie komentarze</div>
+                        <CommentsComponent postObject={this.props.postObject}/>
+                    </>
+                )
+                :
+                (            
+                    <div className="show-all-coments-container" onClick={this.handlClickOnShowOrHideAllComments}>Zobacz wszystkie komentarze</div>
+                )
+            }
             <div className="post-date-container">Dodano {this.state.postCreatedDate}</div>
         </div>
          );

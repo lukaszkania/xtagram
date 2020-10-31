@@ -1,38 +1,83 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { USERS_API } from '../../../API_URLS';
+import { USERS_API, POSTS_API } from '../../../API_URLS';
 import EditAvatarPhotoWidget from '../EditAvatarPhotoWidget/EditAvatarPhotoWidget';
 import NavBar from '../NavBar/NavBar';
+import PostInGalleryOfUserPosts from '../PostInGalleryOfUserPosts/PostInGalleryOfUserPosts';
 import './UserPageComponent.scss';
 
 class UserPageComponent extends Component {
     state = { 
         avatarSrc: "",
         username: "",
-        isNewAvatarPhotoWidgetDisplaying: false
+        userId: "",
+        isNewAvatarPhotoWidgetDisplaying: false,
+        postsOwnedByUser: [],
+        usersFollowedAmount: 0
      }
 
-    componentWillMount(){
-        axios.get(`${USERS_API}${this.props.match.params.user_id}/`).then(response => {
-            this.setState({
-                avatarSrc: response.data.avatar,
-                username: response.data.username
+    componentDidUpdate(){
+        if(parseInt(this.props.match.params.user_id) != this.state.userId){
+            axios.get(`${USERS_API}${this.props.match.params.user_id}/`).then(response => {
+                this.setState({
+                    avatarSrc: response.data.avatar,
+                    username: response.data.username,
+                    userId: response.data.pk,
+                })
+                axios.get(response.data.users_followed).then(response => {
+                    this.setState({
+                        usersFollowedAmount: response.data.list_of_users_that_are_followed_by.length - 1 //Minus user itself
+                    })
+                }).catch(error => {
+                    console.log(error.message)
+                })
+            }).catch(error => {
+                console.log(error.message)
+            }).finally(() => {
+                axios.get(`${POSTS_API}`).then(response => {
+                    this.setState({
+                        postsOwnedByUser: response.data.filter(postObject => {
+                            return postObject.post_author === `${USERS_API}${this.props.match.params.user_id}/`
+                        })
+                    })
+                }).catch(error => {
+                    console.log(error.message)
+                })
             })
-        }).catch(error => {
-            console.log(error.message)
-        })
+           
+        }
+
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
         axios.get(`${USERS_API}${this.props.match.params.user_id}/`).then(response => {
             this.setState({
                 avatarSrc: response.data.avatar,
-                username: response.data.username
+                username: response.data.username,
+                userId: response.data.pk,
+            })
+            axios.get(response.data.users_followed).then(response => {
+                this.setState({
+                    usersFollowedAmount: response.data.list_of_users_that_are_followed_by.length - 1 //Minus user itself
+                })
+            }).catch(error => {
+                console.log(error.message)
             })
         }).catch(error => {
             console.log(error.message)
+        }).finally(() => {
+            axios.get(`${POSTS_API}`).then(response => {
+                this.setState({
+                    postsOwnedByUser: response.data.filter(postObject => {
+                        return postObject.post_author === `${USERS_API}${this.props.match.params.user_id}/`
+                    })
+                })
+            }).catch(error => {
+                console.log(error.message)
+            })
         })
+       
     }
 
     handleEditPhotoButtonClick = event => {
@@ -57,7 +102,7 @@ class UserPageComponent extends Component {
                             <img className="avatar-image" src={this.state.avatarSrc} alt="Avatar"/>
                         </div>
                         <div>
-                            <div className="d-flex justify-content-center">
+                            <div className="">
                                 <h1>{this.state.username}</h1>
                                 {this.props.idOfLoggedInUser === parseInt(this.props.match.params.user_id) ? 
                                     (  
@@ -79,14 +124,17 @@ class UserPageComponent extends Component {
                                 }
                             </div>
                             <div className="statistic-container">
-                                <div>Posty:</div>
-                                <div>obserwujących</div>
-                                <div>Obserwowani</div>
+                                <div>Posty: {this.state.postsOwnedByUser.length}</div>
+                                <div>Obserwujących: {this.state.usersFollowedAmount}</div>
                             </div>
                         </div>
                     </div>
-                    <div>
-
+                    <div className="posts-owned-by-user-container d-flex justify-content-center align-items-center flex-wrap">
+                        {this.state.postsOwnedByUser.map(postObject => {
+                            return (
+                                <PostInGalleryOfUserPosts postObject={postObject} />
+                            )
+                        })}
                     </div>
                 </div>
             </>

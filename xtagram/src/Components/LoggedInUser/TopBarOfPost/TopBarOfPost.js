@@ -8,10 +8,6 @@ import { Link } from 'react-router-dom';
 class TopBarOfPost extends Component {
     state = {  }
 
-    componentDidMount(){
-        console.log(this.props)
-    }
-
     handleClickOnTrashIcon = event => {
         axios.delete(`${POSTS_API}${this.props.postPk}/`).then(response => {
         }).catch(error => {

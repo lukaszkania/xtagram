@@ -1,0 +1,11 @@
+.post-in-gallery-of-posts-container{
+    max-width: 500px;
+    max-height: 500px;
+    margin: 1em;
+    .img-of-post-in-gallery-of-posts-container{
+        float: left;
+        width:  293px;
+        height: 293px;
+        background-size: cover;
+    }
+}
