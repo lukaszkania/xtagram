@@ -18,7 +18,7 @@ class UserPageComponent extends Component {
      }
 
     componentDidUpdate(){
-        if(parseInt(this.props.match.params.user_id) != this.state.userId){
+        if(parseInt(this.props.match.params.user_id) !== this.state.userId){
             axios.get(`${USERS_API}${this.props.match.params.user_id}/`).then(response => {
                 this.setState({
                     avatarSrc: response.data.avatar,

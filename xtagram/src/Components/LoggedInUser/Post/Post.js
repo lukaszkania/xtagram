@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { USERS_API } from '../../../API_URLS';
 import { connect } from 'react-redux';
 import './Post.scss';
 import PostImage from '../PostImage/PostImage';

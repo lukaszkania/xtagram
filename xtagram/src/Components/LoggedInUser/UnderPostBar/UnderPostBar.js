@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './UnderPostBar.scss';
 import axios from 'axios';
-import { LIKES_API, POSTS_API, USERS_API } from '../../../API_URLS';
+import { POSTS_API, USERS_API } from '../../../API_URLS';
 import { connect } from 'react-redux';
 import { modifyDate } from '../../../CONSTANTS';
 import CommentsComponent from '../CommentsComponent/CommentsComponent';

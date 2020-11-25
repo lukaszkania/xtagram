@@ -7,7 +7,6 @@ import RegisterPageComponent from './Components/UnlogedUser/RegisterPageComponen
 import CookiesInfoBarComponent from './Components/UnlogedUser/CookiesInfoBarComponent/CookiesInfoBarComponent';
 import LoggedInHomePage from './Components/LoggedInUser/LoggedInHomePage/LoggedInHomePage';
 import UserPageComponent from './Components/LoggedInUser/UserPageComponent/UserPageComponent';
-import { createStore } from 'redux';
 
 class App extends Component {
 

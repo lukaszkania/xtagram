@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { USERS_API } from '../../../API_URLS';
 import './SearchUsersComponent.scss';
-import { Link, Redirect, useHistory, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SearchUserElement from '../SearchUserElement/SearchUserElement';
 
