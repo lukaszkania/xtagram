@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { modifyDate } from '../../../CONSTANTS';
+import './SingleCommentComponent.scss';
 
 class SingleCommentComponent extends Component {
     state = { 
@@ -23,10 +24,10 @@ class SingleCommentComponent extends Component {
 
     render() { 
         return ( 
-            <div className="single-comment-container">
-                {this.state.commentAuthor}
-                {this.state.commentContent}
-                {this.state.commentAddedDate}
+            <div className="single-comment-container d-flex flex-column">
+                <h3>{this.state.commentAuthor}</h3>
+                <p>{this.state.commentContent}</p>
+                <p>{this.state.commentAddedDate}</p>
             </div>
          );
     }
